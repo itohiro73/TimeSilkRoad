@@ -1,0 +1,30 @@
+version: "3.9"
+services:
+  # Unity project is not included in the Docker Compose file since it will be built and run on the development machine.
+
+  backend:
+    build: ../../backend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+      - redis
+
+  postgres:
+    image: "postgres:latest"
+    environment:
+      POSTGRES_USER: timesilkroad
+      POSTGRES_PASSWORD: your_password
+      POSTGRES_DB: timesilkroad
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  redis:
+    image: "redis:latest"
+    volumes:
+      - redis-data:/data
+
+volumes:
+  postgres-data:
+  redis-data:
+
